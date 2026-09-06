@@ -1,10 +1,10 @@
 [package]
-name = "naifuru"
+name = "todoke"
 authors = ["sl91994 <112153975+sl91994@users.noreply.github.com>"]
 version = "0.1.0"
 edition = "2024"
 license-file = "LICENSE"
-repository = "https://github.com/sl91994/naifuru"
-description = "Earthquake Acceleration File Converter"
+repository = "https://github.com/sl91994/todoke"
+description = "A small CLI for managing coordinated vulnerability disclosures"
 
 [dependencies]
