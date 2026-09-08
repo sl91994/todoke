@@ -1,3 +1,3 @@
 pub fn run() -> anyhow::Result<()> {
-    todo!()
+    anyhow::bail!("todoke run is not implemented yet")
 }

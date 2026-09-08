@@ -10,5 +10,5 @@ pub fn run(
     _note: Option<String>,
     _reference: Option<String>,
 ) -> anyhow::Result<()> {
-    todo!()
+    anyhow::bail!("todoke event is not implemented yet")
 }
