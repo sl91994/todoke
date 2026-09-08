@@ -8,4 +8,5 @@ repository = "https://github.com/sl91994/todoke"
 description = "A small CLI for managing coordinated vulnerability disclosures"
 
 [dependencies]
+anyhow = "1.0.104"
 clap = { version = "4.6.6", features = ["derive"] }
