@@ -7,7 +7,7 @@ mod status;
 
 use crate::{
     cli::{Args, Command},
-    store::discover_root,
+    store::{MARKER, discover_root},
 };
 
 pub fn dispatch(cli: Args) -> anyhow::Result<()> {
@@ -19,7 +19,7 @@ pub fn dispatch(cli: Args) -> anyhow::Result<()> {
             let root = discover_root(&cwd).ok_or_else(|| {
                 anyhow::anyhow!("not inside a todoke vault (run `todoke init` first)")
             })?;
-            let data_dir = root.join(".todoke");
+            let data_dir = root.join(MARKER);
 
             match other {
                 Command::New { title, slug } => new::run(&data_dir, title, slug),
