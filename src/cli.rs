@@ -1,5 +1,7 @@
 use clap::{Parser, Subcommand, ValueEnum};
 
+use crate::model::slug::Slug;
+
 #[derive(ValueEnum, Clone, Debug)]
 pub enum EventKind {
     Discovered,
@@ -30,14 +32,13 @@ pub enum Command {
     New {
         /// Short title of the vulnerability
         title: String,
-        /// Directory-safe identifier (defaults to a slug of the title)
-        #[arg(long)]
-        slug: Option<String>,
+        /// Directory-safe identifier
+        slug: Slug,
     },
     /// Append an event to a case timeline
     Event {
         /// Case slug
-        slug: String,
+        slug: Slug,
         /// Event kind (discovered, reported, fixed, disclosed, ...)
         kind: EventKind,
         /// Date of the event (YYYY-MM-DD; defaults to today)
@@ -53,14 +54,14 @@ pub enum Command {
     /// Show a single case and its timeline
     Status {
         /// Case slug
-        slug: String,
+        slug: Slug,
     },
     /// List all cases
     List,
     /// Render a report from a template
     Render {
         /// Case slug
-        slug: String,
+        slug: Slug,
         /// Template name (ghsa, ipa, blog)
         #[arg(long)]
         template: String,
