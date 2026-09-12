@@ -1,5 +1,8 @@
+pub mod toml_store;
+
 use std::{
-    fs, io,
+    fs::{self, OpenOptions},
+    io::{self, Write},
     path::{Path, PathBuf},
 };
 
@@ -7,8 +10,7 @@ use anyhow::Context;
 
 pub const MARKER: &str = ".todoke";
 
-/// ディレクトリ作成の結果
-pub enum DirInit {
+pub enum PathInit {
     Created(PathBuf),
     AlreadyExists(PathBuf),
 }
@@ -23,17 +25,18 @@ pub fn discover_root(start: &Path) -> Option<PathBuf> {
 
 /// ディレクトリを作成する (vault / case 共通)
 ///
-/// 既に同名のディレクトリがある場合は `AlreadyExists` を返し，ディレクトリ以外が存在する場合はエラー
-pub fn make_dir(dir: &Path) -> anyhow::Result<DirInit> {
+/// 既に同名のディレクトリがある場合は `AlreadyExists` を返し，
+/// ディレクトリ以外が存在する場合はエラー
+pub fn make_dir(dir: &Path) -> anyhow::Result<PathInit> {
     let path = dir.to_path_buf();
 
     match fs::create_dir(&path) {
-        Ok(()) => Ok(DirInit::Created(path)),
+        Ok(()) => Ok(PathInit::Created(path)),
         Err(e) if e.kind() == io::ErrorKind::AlreadyExists => {
             if !dir.is_dir() {
                 anyhow::bail!("{} already exists but is not a directory", dir.display());
             }
-            Ok(DirInit::AlreadyExists(path))
+            Ok(PathInit::AlreadyExists(path))
         }
         Err(e) => {
             Err(e).with_context(|| format!("Failed to create the directory: {}", dir.display()))
