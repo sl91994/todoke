@@ -2,6 +2,7 @@ use serde::Serialize;
 
 use crate::model::slug::Slug;
 
+#[allow(dead_code)]
 #[derive(Serialize)]
 pub enum Severity {
     Unknown,
