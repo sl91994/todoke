@@ -1,3 +1,4 @@
 /target
 /.direnv
+/examples/.todoke
 .env*
