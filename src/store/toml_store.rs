@@ -1,19 +1,10 @@
 use serde::Serialize;
 
-use crate::model::slug::Slug;
-
-#[allow(dead_code)]
-#[derive(Serialize)]
-pub enum Severity {
-    Unknown,
-    Low,
-    Medium,
-    High,
-    Critical,
-}
+use crate::model::{serverity::Severity, slug::Slug, timeline::EventKind};
 
 /// case.toml のひな型
 #[derive(Serialize)]
+#[serde(rename_all = "lowercase")]
 pub struct Case {
     pub meta: Meta,
     pub affected: Affected,
@@ -53,7 +44,7 @@ pub struct Ids {
 #[derive(Serialize)]
 pub struct TimelineEntry {
     pub date: String,
-    pub kind: String,
+    pub kind: EventKind,
     pub note: String,
 }
 
@@ -80,7 +71,7 @@ impl Case {
             },
             timeline: vec![TimelineEntry {
                 date, // newコマンドでの作成時はそのUTC時刻
-                kind: String::new(),
+                kind: EventKind::Discovered,
                 note: String::new(),
             }],
         }
