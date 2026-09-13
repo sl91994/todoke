@@ -3,7 +3,7 @@ slug = "todoke-path-traversal"
 title = "todoke CVE-xxxx-xxxx PathTraversal"
 severity = "unknown"                         # unknown | low | medium | high | critical
 summary = ""
-poc = false                                  # PoCが容易されているか (bool)
+poc = false                                  # PoCが用意されているか (bool)
 reporter = "SL9"
 # レポート本文は，caseディレクトリ内にmarkdownでおいておく (new時に1つ生成される)
 [affected]
