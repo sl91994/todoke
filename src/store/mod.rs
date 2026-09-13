@@ -24,9 +24,6 @@ pub fn discover_root(start: &Path) -> Option<PathBuf> {
 }
 
 /// ディレクトリを作成する (vault / case 共通)
-///
-/// 既に同名のディレクトリがある場合は `AlreadyExists` を返し，
-/// ディレクトリ以外が存在する場合はエラー
 pub fn make_dir(dir: &Path) -> anyhow::Result<PathInit> {
     let path = dir.to_path_buf();
 
@@ -41,5 +38,34 @@ pub fn make_dir(dir: &Path) -> anyhow::Result<PathInit> {
         Err(e) => {
             Err(e).with_context(|| format!("Failed to create the directory: {}", dir.display()))
         }
+    }
+}
+
+/// ファイルを新規作成して内容を書き込む
+///
+/// - ファイルを新規作成する (すでに同一pathがある場合は，`AlreadyExists`)
+pub fn make_file(path: &Path, contents: &[u8]) -> anyhow::Result<PathInit> {
+    let path_buf = path.to_path_buf();
+
+    match OpenOptions::new()
+        .write(true)
+        .create_new(true)
+        .open(&path_buf)
+    {
+        Ok(mut file) => {
+            file.write_all(contents)
+                .with_context(|| format!("Failed to write to file: {}", path.display()))?;
+            Ok(PathInit::Created(path_buf))
+        }
+        Err(e) if e.kind() == io::ErrorKind::AlreadyExists => {
+            if !path.is_file() {
+                anyhow::bail!(
+                    "{} already exists but is not a regular file",
+                    path.display()
+                );
+            }
+            Ok(PathInit::AlreadyExists(path_buf))
+        }
+        Err(e) => Err(e).with_context(|| format!("Failed to create the file: {}", path.display())),
     }
 }
