@@ -1,0 +1,22 @@
+[meta]
+slug = "todoke-path-traversal"
+title = "todoke CVE-xxxx-xxxx PathTraversal"
+severity = "unknown"                         # unknown | low | medium | high | critical
+summary = ""
+poc = false                                  # PoCが容易されているか (bool)
+reporter = "SL9"
+# レポート本文は，caseディレクトリ内にmarkdownでおいておく (new時に1つ生成される)
+[affected]
+name = ""
+ecosystem = ""
+versions = ""
+patched = ""
+
+[ids]
+cve = "CVE-..."
+ghsa = "GHSA-..."
+
+[[timeline]]
+date = "2026-09-09" # new した日を discovered として自動で1件入れておく
+kind = "discovered"
+note = ""
