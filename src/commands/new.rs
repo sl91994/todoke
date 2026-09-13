@@ -29,5 +29,13 @@ pub fn run(vault_dir: &Path, title: String, slug: Slug) -> anyhow::Result<()> {
         PathInit::AlreadyExists(_) => anyhow::bail!("case.toml {:?} already exists", slug),
     }
 
+    let report_path = case_dir.join("report.md");
+
+    // 空のレポート本文ファイルを作成
+    match make_file(&report_path, b"")? {
+        PathInit::Created(p) => println!("Created report.md at {}", p.display()),
+        PathInit::AlreadyExists(_) => anyhow::bail!("report.md {:?} already exists", slug),
+    }
+
     Ok(())
 }
