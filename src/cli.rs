@@ -1,17 +1,7 @@
-use clap::{Parser, Subcommand, ValueEnum};
+use clap::{Parser, Subcommand};
 
 use crate::model::slug::Slug;
-
-#[derive(ValueEnum, Clone, Debug)]
-pub enum EventKind {
-    Discovered,
-    Reported,
-    Acknowledged,
-    Fixed,
-    Disclosed,
-    /// etc...
-    Note,
-}
+pub use crate::model::timeline::EventKind;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
