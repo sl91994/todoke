@@ -66,6 +66,8 @@ pub fn make_file(path: &Path, contents: &[u8]) -> anyhow::Result<PathInit> {
             }
             Ok(PathInit::AlreadyExists(path_buf))
         }
-        Err(e) => Err(e).with_context(|| format!("Failed to create the file: {}", path.display())),
+        Err(e) => {
+            Err(e).with_context(|| format!("Failed to open/create the file: {}", path.display()))
+        }
     }
 }
