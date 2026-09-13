@@ -1,10 +1,10 @@
 use std::path::Path;
 
-use crate::cli::EventKind;
+use crate::{cli::EventKind, model::slug::Slug};
 
 pub fn run(
     _data_dir: &Path,
-    _slug: String,
+    _slug: Slug,
     _kind: EventKind,
     _date: Option<String>,
     _note: Option<String>,
