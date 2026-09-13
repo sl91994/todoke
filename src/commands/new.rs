@@ -21,7 +21,7 @@ pub fn run(vault_dir: &Path, title: String, slug: Slug) -> anyhow::Result<()> {
     // case_dir 内に case.toml のひな型を作成
     let created_at = Utc::now().date_naive().to_string();
     let template = Case::new(&slug, title, created_at);
-    let template_toml = toml::to_string(&template).context("Failed to parse case.toml")?;
+    let template_toml = toml::to_string(&template).context("Failed to serialize case.toml")?;
     let template_path = case_dir.join("case.toml");
 
     match make_file(&template_path, template_toml.as_bytes())? {
